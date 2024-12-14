@@ -35,6 +35,7 @@ function createTodo() {
 
 <template>
   <main>
+    <h1>Hey! Does this automatically redeploy to dev when I push it?</h1>
     <h1>My todos</h1>
     <button @click="createTodo">+ new</button>
     <ul>
