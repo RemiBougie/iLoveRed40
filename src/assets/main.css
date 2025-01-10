@@ -1,12 +1,19 @@
+@font-face {
+  font-family: "Jersey 25";
+  src: url('@/assets/fonts/Jersey25.tff') format('tff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  background: linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255));
+  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(255, 0, 0));
   display: flex;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   height: 100vh;
   width: 100vw;
   justify-content: center;
-  align-items: center;
+  /*align-items: center;*/
 }
 
 main {
@@ -14,6 +21,13 @@ main {
   flex-direction: column;
   align-items: stretch;
 }
+
+/*
+div {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}*/
 
 button {
   border-radius: 8px;
@@ -62,4 +76,44 @@ li:hover {
 a {
   font-weight: 800;
   text-decoration: none;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  background-image: url('images/Red40_12Dec2024.jpg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: lighten;
+  background-color: rgba(255,255,255,0.6);
+  z-index: -1;
+}
+
+.banner-h2 {
+  font-family: "Jersey 25";
+}
+
+.banner-h1 {
+  font-family: "Jersey 25";
+  font-size: 40px;
+  color: red;
+  stroke: black;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+}
+
+input {
+  background-color: white;
+  padding: 8px;
+  border: 1px solid black;
+  gap: 1px;
+  border-radius: 8px;
+  overflow: auto;
 }
