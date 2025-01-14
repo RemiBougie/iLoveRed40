@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import Todos from './components/Todos.vue'
-import ContactForm from './components/ContactForm.vue'
 import Banner from './components/Banner.vue'
+import Todos from './components/Todos.vue'
+import UpcomingShows from './components/UpcomingShows.vue'
+import ContactForm from './components/ContactForm.vue'
 // TO-DO: remove everything related to Todos
 </script>
 
@@ -9,6 +10,7 @@ import Banner from './components/Banner.vue'
   <main>
     <Banner />
     <Todos />
+    <UpcomingShows />
     <ContactForm />
   </main>
 </template>
