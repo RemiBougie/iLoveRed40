@@ -48,7 +48,7 @@ const headers = Object.keys(UpcomingShows[0]);
             v-for="(header, i) in headers"
             :key="`${header}-${i}`"
           >
-            {{ show[header] }}
+            {{ header }}
           </td>
         </tr>
       </tbody>
