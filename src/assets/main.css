@@ -7,13 +7,16 @@
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, rgb(255, 255, 255), rgb(255, 0, 0));
   display: flex;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  height: 100vh;
+  /*height: 100vh;*/
   width: 100vw;
   justify-content: center;
   /*align-items: center;*/
+}
+
+.contents {
+  background: linear-gradient(180deg, rgb(255, 0, 0), rgb(255, 255, 255));
 }
 
 main {
@@ -79,7 +82,7 @@ a {
 }
 
 .background-image {
-  position: fixed;
+  position: sticky; 
   top: 0;
   left: 0;
   width: 100%;
@@ -96,13 +99,20 @@ a {
 
 .banner-h2 {
   font-family: "Jersey 25", sans-serif;
+  font-size: 50px;
+  text-align: center;
+  margin: 0;
+  top: 70%;
 }
 
 .banner-h1 {
   font-family: "Jersey 25", sans-serif;
-  font-size: 40px;
+  font-size: 100px;
+  text-align: center;
+  margin: 0;
   color: red;
-  stroke: black;
+  -webkit-text-fill-color: red;
+  /*-webkit-text-stroke: 1px black;*/
 }
 
 .form-input {
