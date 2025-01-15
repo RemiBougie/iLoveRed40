@@ -4,6 +4,13 @@ import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 //To-Do: replace with reference to table
+interface UpcomingShow {
+    id: string;
+    datetime: string;
+    venue: string;
+    details: string;
+}
+
 const UpcomingShows = [
   {
     "id": "Gig1",
@@ -44,12 +51,12 @@ const headers = Object.keys(UpcomingShows[0]);
           :key="`show-${show.id}`"
           class="table-rows"
         >
-          <td
-            v-for="(header, i) in headers"
-            :key="`${header}-${i}`"
-          >
-            {{ header }}
+          <td>
+            {{ show.id }}
           </td>
+          <td> {{ show.datetime }}</td>
+          <td> {{ show.venue }}</td>
+          <td> {{ show.details }}</td>
         </tr>
       </tbody>
     </table>
