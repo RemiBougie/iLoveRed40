@@ -87,7 +87,7 @@ a {
   left: 0;
   width: 100%;
   height: 500px;
-  background-image: url('./images/Red40_12Dec2024.jpg');
+  background-image: url('/public/images/Red40_12Dec2024.jpg');
   background-size: cover;
   background-position: center;
   background-blend-mode: lighten;
