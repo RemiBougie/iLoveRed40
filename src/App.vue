@@ -9,6 +9,7 @@ import ContactForm from "./components/ContactForm.vue";
 <template>
   <main>
     <Banner />
+    <h1>BIO WILL GO HERE!!!</h1>
     <div class="contents">
       <UpcomingShows />
       <ContactForm />
