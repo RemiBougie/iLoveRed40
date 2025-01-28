@@ -16,7 +16,7 @@ const toggleAuthenticator = () => {
 </script>
 
 <template>
-  <authenticator :hide-sign-up="true" variation="modal" v-if="showAuthenticator">
+  <Authenticator :hide-sign-up="true" variation="modal" v-if="showAuthenticator">
     <template v-slot:sign-in-header>
       <h3
         class="amplify-heading"
@@ -34,6 +34,6 @@ const toggleAuthenticator = () => {
     <template v-slot:sign-in-footer>
       <button @click="toggleAuthenticator">Close</button>
     </template>
-  </authenticator>
+  </Authenticator>
   
 </template>
