@@ -1,10 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 //import { Storage } from "aws-amplify";
 import "@/assets/main.css";
 import { list, getUrl, uploadData, downloadData } from "aws-amplify/storage";
+import type { Url } from "url";
 
-const mediaFiles = ref([]);
+interface fileWithUrl {
+  key: string;
+  url: URL;
+}
+const mediaFiles = ref(<Array<fileWithUrl>>[]);
 
 const fetchMedia = async () => {
   console.log("mediaFiles BEFORE try statement: ", mediaFiles);
@@ -16,7 +21,7 @@ const fetchMedia = async () => {
     const filesWithUrls = await Promise.all(
       files.items.map(async (file) => ({
         key: file.path,
-        url: await getUrl({ path: file.path }),
+        url: (await getUrl({ path: file.path })).url,
       }))
     );
     mediaFiles.value = filesWithUrls;
@@ -36,13 +41,13 @@ onMounted(fetchMedia);
       <div v-if="mediaFiles.length" class="gallery">
         <div v-for="file in mediaFiles" :key="file.key" class="media=item">
           <!--p>{{ file.url.url }}</p-->
-          <img :src="file.url.url" alt="Media" class="media" />
-          <!--template v-if="file.url.url.endsWith('.mp4')">
-            <video controls :src="file.url" class="media"></video>
+          <!--img :src="file.url.href" alt="Media" class="media" /-->
+          <template v-if="file.key.endsWith('.mp4') || file.key.endsWith('.mov')">
+            <video controls :src="file.url.href" class="media"></video>
           </template>
           <template v-else>
-            <img :src="file.url.url" alt="Media" class="media" />
-          </template-->
+            <img :src="file.url.href" alt="Media" class="media" />
+          </template>
         </div>
       </div>
     </div>
