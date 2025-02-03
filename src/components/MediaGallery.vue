@@ -16,13 +16,19 @@ const fetchMedia = async () => {
   try {
     //const files = await storage.list('');
     const files = await list({ path: "media/" });
+    //const filteredFiles = files.filter((file) => {!file.key.endsWith('/')})
     console.log("files: ", files);
     console.log("files.items: ", files.items);
     const filesWithUrls = await Promise.all(
-      files.items.map(async (file) => ({
-        key: file.path,
-        url: (await getUrl({ path: file.path })).url,
-      }))
+      files.items
+        .filter((file) => {
+          console.log(!file.path.endsWith("/"));
+          return !file.path.endsWith("/");
+        })
+        .map(async (file) => ({
+          key: file.path,
+          url: (await getUrl({ path: file.path })).url,
+        }))
     );
     mediaFiles.value = filesWithUrls;
     console.log("mediaFiles AFTER try statement: ", mediaFiles);
@@ -42,7 +48,12 @@ onMounted(fetchMedia);
         <div v-for="file in mediaFiles" :key="file.key" class="media=item">
           <!--p>{{ file.url.url }}</p-->
           <!--img :src="file.url.href" alt="Media" class="media" /-->
-          <template v-if="file.key.toLowerCase().endsWith('.mp4') || file.key.toLowerCase().endsWith('.mov')">
+          <template
+            v-if="
+              file.key.toLowerCase().endsWith('.mp4') ||
+              file.key.toLowerCase().endsWith('.mov')
+            "
+          >
             <video controls :src="file.url.href" class="media"></video>
           </template>
           <template v-else-if="file.key.toLowerCase() !== 'media/'">
