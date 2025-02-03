@@ -8,6 +8,7 @@ import UpcomingShows from "./components/UpcomingShows.vue";
 import ContactForm from "./components/ContactForm.vue";
 import MediaGallery from "./components/MediaGallery.vue";
 import UploadMedia from './components/UploadMedia.vue';
+import Bio from "./components/Bio.vue"
 // TO-DO: remove everything related to Todos
 
 import { getCurrentUser } from 'aws-amplify/auth';
@@ -33,6 +34,7 @@ const toggleAuthentication = () => {
     <button class="admin-login-btn" @click="toggleAuthenticator">Admin Login</button>
     <Banner />
     <div class="contents">
+      <Bio />
       <UpcomingShows />
       <ContactForm />
       <MediaGallery />

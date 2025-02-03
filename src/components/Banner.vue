@@ -6,7 +6,6 @@
 </template>
 
 <style>
-
 .background-image {
   position: sticky; 
   top: 0;
@@ -40,5 +39,4 @@
   -webkit-text-fill-color: red;
   /*-webkit-text-stroke: 1px black;*/
 }
-
 </style>
