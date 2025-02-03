@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { uploadData } from "aws-amplify/storage";
 
@@ -26,19 +26,20 @@ upload.addEventListener("click", () => {
 //const file = document.getElementById("file");
 //const upload = document.getElementById("upload");
 
-const fileInput = ref(null);
-const selectedFile = ref(null);
+const fileInput = ref<File | null>(null);
+const selectedFile = ref<File | null>(null);
 
-const handleFileUpload = (event) => {
+const handleFileUpload = (event: Event) => {
   console.log("handleFileUpload called!");
-  const file = event.target.files[0];
-  if (file) {
-    selectedFile.value = file;
-    console.log("Selected file:", file);
+  const target = event.target as HTMLInputElement;
+  //const file = target.files[0];
+  if (target.files && target.files.length > 0) {
+    selectedFile.value = target.files[0];
+    console.log("Selected file:", selectedFile.value);
   }
 };
 
-const fileReader = new FileReader();
+//const fileReader = new FileReader();
 const uploadFile = async () => {
   if (!selectedFile.value) {
     console.log("No file selected");

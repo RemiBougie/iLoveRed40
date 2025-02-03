@@ -42,7 +42,7 @@ onMounted(fetchMedia);
         <div v-for="file in mediaFiles" :key="file.key" class="media=item">
           <!--p>{{ file.url.url }}</p-->
           <!--img :src="file.url.href" alt="Media" class="media" /-->
-          <template v-if="file.key.endsWith('.mp4') || file.key.endsWith('.mov')">
+          <template v-if="file.key.toLowerCase().endsWith('.mp4') || file.key.toLowerCase().endsWith('.mov')">
             <video controls :src="file.url.href" class="media"></video>
           </template>
           <template v-else>

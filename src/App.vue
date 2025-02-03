@@ -6,7 +6,7 @@ import Banner from "./components/Banner.vue";
 import Todos from "./components/Todos.vue";
 import UpcomingShows from "./components/UpcomingShows.vue";
 import ContactForm from "./components/ContactForm.vue";
-import MediaGallery from './components/MediaGallery.vue';
+import MediaGallery from "./components/MediaGallery.vue";
 import UploadMedia from './components/UploadMedia.vue';
 // TO-DO: remove everything related to Todos
 
