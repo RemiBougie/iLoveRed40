@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { ref } from 'vue';
 
 import { Authenticator } from "@aws-amplify/ui-vue";
@@ -15,15 +15,12 @@ const toggleAuthenticator = () => {
 }
 </script>
 
+
+
+
 <template>
-  <Authenticator :hide-sign-up="true" variation="modal" v-if="showAuthenticator">
+  <Authenticator variation="modal" v-if="showAuthenticator" social-providers={[google]} >
     <template v-slot:sign-in-header>
-      <h3
-        class="amplify-heading"
-        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
-      >
-        Admin Login
-      </h3>
     </template>
 
     <template v-slot="{ user, signOut }">
@@ -36,4 +33,4 @@ const toggleAuthenticator = () => {
     </template>
   </Authenticator>
   
-</template>
+</template> -->

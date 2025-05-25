@@ -12,17 +12,17 @@ interface fileWithUrl {
 const mediaFiles = ref(<Array<fileWithUrl>>[]);
 
 const fetchMedia = async () => {
-  console.log("mediaFiles BEFORE try statement: ", mediaFiles);
+  // console.log("mediaFiles BEFORE try statement: ", mediaFiles);
   try {
     //const files = await storage.list('');
     const files = await list({ path: "media/" });
     //const filteredFiles = files.filter((file) => {!file.key.endsWith('/')})
-    console.log("files: ", files);
-    console.log("files.items: ", files.items);
+    // console.log("files: ", files);
+    // console.log("files.items: ", files.items);
     const filesWithUrls = await Promise.all(
       files.items
         .filter((file) => {
-          console.log(!file.path.endsWith("/"));
+          // console.log(!file.path.endsWith("/"));
           return !file.path.endsWith("/");
         })
         .map(async (file) => ({
@@ -31,7 +31,7 @@ const fetchMedia = async () => {
         }))
     );
     mediaFiles.value = filesWithUrls;
-    console.log("mediaFiles AFTER try statement: ", mediaFiles);
+    // console.log("mediaFiles AFTER try statement: ", mediaFiles);
   } catch (error) {
     console.error("Error fetching media: ", error);
   }
@@ -39,6 +39,9 @@ const fetchMedia = async () => {
 
 onMounted(fetchMedia);
 </script>
+
+
+
 
 <template>
   <main>
@@ -64,6 +67,9 @@ onMounted(fetchMedia);
     </div>
   </main>
 </template>
+
+
+
 
 <style>
 .gallery {

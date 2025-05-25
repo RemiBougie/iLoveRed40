@@ -6,7 +6,7 @@
   </p>
   <p>Find out why Red40 is the saxiest band in town!</p>
   <p>
-    James (sax), John (drums), Calvin (bass), Isaia (guitar), Remi (guitar/keys)
+    James (sax/vocals), John (drums), Calvin (bass), Isaia (guitar), Remi (guitar/keys), Keff (trumpet)
   </p>
   <div class="socials">
     <!--Instagram link-->
