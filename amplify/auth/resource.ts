@@ -23,19 +23,27 @@ export const auth = defineAuth({
       ],
     }
   },
-  // userAttributes: {
-  //   email: {
-  //     mutable: true,
-  //     required: true
-  //   },
-  //   fullname: {
-  //     mutable: true,
-  //     required: false,
-  //   },
-  //   phoneNumber: {
-  //     mutable: true,
-  //     required: false
-  //   }
-  // },
-  groups: ["USERS", "ADMINS"]
+  userAttributes: {
+    fullname: {
+      mutable: true,
+      required: false,
+    },
+    email: {
+      mutable: true,
+      required: true
+    },
+    "custom:email-notifications": {
+      dataType: "Boolean",
+      mutable: true
+    },
+    phoneNumber: {
+      mutable: true,
+      required: false
+    },
+    "custom:text-notifications": {
+      dataType: "Boolean",
+      mutable: true
+    }
+  },
+  groups: ["USERS", "ADMINS"] // probably don't need Users group, this is created by default
 });

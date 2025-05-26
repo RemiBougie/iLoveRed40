@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue';
 // import Authenticator from "./components/Authenticator.vue";
 import Banner from "./components/Banner.vue";
 import Todos from "./components/Todos.vue";
+import ManageUserAttributes from './components/ManageUserAttributes.vue';
 import UpcomingShows from "./components/UpcomingShows.vue";
 import ContactForm from "./components/ContactForm.vue";
 import MediaGallery from "./components/MediaGallery.vue";
@@ -16,12 +17,15 @@ import "@aws-amplify/ui-vue/styles.css";
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 
 const auth = useAuthenticator();
-
+const isAuthenticated = ref(false)
 const isAdmin = ref<boolean>(false)
+
 onMounted(async () => {
+  // determine if the user is authenticated and an admin
   try {
     const session = await fetchAuthSession()
     if (session.tokens) {
+      isAuthenticated.value = true
       const payload = session.tokens.accessToken.payload['cognito:groups'] || [];
       if (payload) {isAdmin.value = payload.includes('ADMINS');}
     }
@@ -57,7 +61,7 @@ const toggleAuthenticator = () => {
 <template>
   <main>
     <!-- Authenticator is a toggling modal that overlays/disappears -->
-    <Authenticator variation="modal" v-if="showAuthenticator || auth.route === 'authenticated'" social-providers={[google]} >
+    <Authenticator variation="modal" v-if="showAuthenticator || isAuthenticated.valueOf()" social-providers={[google]} >
       <template v-slot:sign-in-header>
       </template>
 
@@ -71,7 +75,7 @@ const toggleAuthenticator = () => {
       </template>
     </Authenticator>
 
-    <template v-if="auth.route !== 'authenticated'">
+    <template v-if="!isAuthenticated.valueOf()">
       <button class="admin-login-btn" @click="toggleAuthenticator">Sign In / Sign Up</button>
     </template>
     
@@ -81,9 +85,10 @@ const toggleAuthenticator = () => {
 
     <!-- Everything under the banner, in order -->
     <div class="contents">
+      <ManageUserAttributes v-if="isAuthenticated.valueOf()"/>
+      <ContactForm v-if="isAuthenticated.valueOf()"/>
       <Bio />
       <UpcomingShows />
-      <ContactForm />
       <MediaGallery />
       <UploadMedia v-if="isAdmin.valueOf()"/>
     </div>
