@@ -25,8 +25,8 @@ onMounted(async () => {
     const session = await fetchAuthSession()
     if (session.tokens) {
       isAuthenticated.value = true
-      const payload = session.tokens.accessToken.payload['cognito:groups'] || [];
-      if (payload) {isAdmin.value = payload.includes('ADMINS');}
+      const payload = session.tokens.accessToken.payload['cognito:groups'];
+      if (Array.isArray(payload)) {isAdmin.value = payload.includes('ADMINS');}
     }
   } catch (error) {
     console.error('Failed to fetch user session:', error)
