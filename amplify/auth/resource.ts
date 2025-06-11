@@ -15,11 +15,13 @@ export const auth = defineAuth({
       },
       callbackUrls: [
         'http://localhost:5173',
-        'https://dev.d15ghfl73jb9i6.amplifyapp.com/' // replace w env variable
+        'https://dev.d15ghfl73jb9i6.amplifyapp.com/', // replace w env variable
+        'https://main.d15ghfl73jb9i6.amplifyapp.com/'
       ],
       logoutUrls: [
         'http://localhost:5173',
-        'https://dev.d15ghfl73jb9i6.amplifyapp.com/' // replace w env variable
+        'https://dev.d15ghfl73jb9i6.amplifyapp.com/', // replace w env variable
+        'https://main.d15ghfl73jb9i6.amplifyapp.com/'
       ],
     }
   },
