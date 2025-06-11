@@ -53,7 +53,7 @@ const toggleAuthenticator = () => {
       </template>
 
       <template v-slot="{ user, signOut }">
-        <h1>Hello {{ user.name === "" ? user.username: user.name }}!</h1>
+        <!-- <h1>Hello {{ user.fullname === "" ? user.username : user.fullname }}!</h1> -->
         <button @click="signOut">Sign Out</button>
       </template>
 
