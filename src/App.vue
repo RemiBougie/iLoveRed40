@@ -73,9 +73,11 @@ const toggleAuthenticator = () => {
     <!-- Everything under the banner, in order -->
     <div class="contents">
       <ManageUserAttributes v-if="isAuthenticated.valueOf()"/>
-      <ContactForm v-if="isAuthenticated.valueOf()"/>
+      <!-- <ContactForm v-if="isAuthenticated.valueOf()"/> -->
       <Bio />
-      <UpcomingShows />
+      <UpcomingShows :isAdmin="isAdmin.valueOf()"/>
+
+      <!-- to-do: combine the following two components into one -->
       <MediaGallery />
       <UploadMedia v-if="isAdmin.valueOf()"/>
     </div>
