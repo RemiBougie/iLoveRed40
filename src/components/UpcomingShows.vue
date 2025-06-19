@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import "@/assets/main.css";
 import { onMounted, reactive, ref } from "vue";
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
@@ -11,13 +13,13 @@ defineProps({
 const client = generateClient<Schema>();
 //To-Do: replace with reference to table
 interface UpcomingShow {
-  datetime: string;
+  datetime: Date;
   venue: string;
   details: string;
 }
 
 const formData = reactive<UpcomingShow>({
-  datetime: "",
+  datetime: new Date(),
   venue: "",
   details: "",
 });
@@ -28,13 +30,25 @@ function listShows() {
   client.models.Shows.observeQuery().subscribe({
     next: ({ items, isSynced }) => {
       shows.value = items;
+      shows.value.sort((showA, showB) => {
+        const dateA = new Date(showA.createdAt);
+        const dateB = new Date(showB.createdAt);
+        return dateB.getTime() - dateA.getTime();
+      })
     },
   });
 }
 
 function createShow() {
+  const formattedDate = `${formData.datetime.getMonth()}/${formData.datetime.getDate()}/${formData.datetime.getFullYear()}`
+
+  const hours = formData.datetime.getHours() % 12;
+  // const AMorPM = {formData.datetime.getHours()}
+  const formattedTime = `${formData.datetime.getHours()}:${formData.datetime.getMinutes()}`
+
+  const formattedDatetime = `${formattedDate} at ${formattedTime}`
   client.models.Shows.create({
-    datetime: formData.datetime,
+    datetime: formattedDatetime,
     venue: formData.venue,
     details: formData.details,
   }).then(() => {
@@ -72,7 +86,8 @@ onMounted(() => {
       <form @submit.prevent="createShow">
         <label
           >Date and Time
-          <input type="text" id="date-time" v-model="formData.datetime" />
+          <!-- <input type="text" id="date-time" v-model="formData.datetime" /> -->
+          <Datepicker v-model="formData.datetime" :is24="false"/>
         </label>
         <label
           >Venue <input type="text" id="venue" v-model="formData.venue"
