@@ -20,6 +20,14 @@ const schema = a.schema({
       phone_number: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+
+  Shows: a
+    .model({
+      datetime: a.string(),
+      venue: a.string(),
+      details: a.string()
+    })
+    .authorization((allow) => [allow.publicApiKey()])
 });
 
 export type Schema = ClientSchema<typeof schema>;

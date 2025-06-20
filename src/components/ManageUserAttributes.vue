@@ -9,19 +9,6 @@ import {
   type UpdateUserAttributesOutput,
 } from "aws-amplify/auth";
 
-// const userAttributes = ref<{
-//   fullname: string;
-//   email: string;
-//   phone_number: string;
-//   email_notifications: boolean;
-//   text_notifications: boolean;
-// }>({
-//   fullname: "",
-//   email: "",
-//   phone_number: "",
-//   email_notifications: false,
-//   text_notifications: false,
-// });
 interface UserAttributes {
   name: string;
   email: string;
@@ -37,13 +24,11 @@ const userAttributes = reactive<UserAttributes>({
   text_notifications: false,
 });
 
+const message = ref<string>('')
+
 // Don't let the user change their email address.
 async function handleUpdateUserAttribute(
-    attributes: UserAttributes
-//   fullname: string,
-//   phone_number: string,
-//   email_notifications: boolean,
-//   text_notifications: boolean
+  attributes: UserAttributes
 ) {
   try {
     const output = await updateUserAttributes({
@@ -59,13 +44,21 @@ async function handleUpdateUserAttribute(
   }
 }
 
-function validatePhoneNumber() {
-  console.log("This will validate the phone number...");
+function validatePhoneNumber(e: Event): boolean {
+  const phone = (e.target as HTMLInputElement).value;
+  const e164Regex = /^\+?[1-9]\d{1,14}$/;
+  if (!e164Regex.test(phone)) {
+    message.value = "Phone number must follow the format: +1234567890";
+    return false;
+  } 
+  message.value = ""
+  return true;
 }
 
 function handleSubmit() {
-  console.log("User Attributes to update:", userAttributes.valueOf());
-  handleUpdateUserAttribute(userAttributes)
+  // console.log("User Attributes to update:", userAttributes.valueOf());
+  handleUpdateUserAttribute(userAttributes);
+  message.value = "Your preferences have been updated!"
 }
 
 onMounted(async () => {
@@ -75,31 +68,17 @@ onMounted(async () => {
       userAttributes.email = result["email"] || "";
       userAttributes.name = result["name"] || "";
       userAttributes.phone_number = result["phone_number"] || "";
-      userAttributes.email_notifications =
-        Boolean(result["custom:email-notifications"]) || false;
-      userAttributes.text_notifications =
-        Boolean(result["custom:text-notifications"]) || false;
-      //   const result_mapping = {
-      //     email: result["email"] || "",
-      //     fullname: result["fullname"] || "",
-      //     phone_number: result["phone_number"] || "",
-      //     email_notifications: Boolean(result["custom:email-notifications"]) || false,
-      //     text_notifications: Boolean(result["custom:text-notifications"]) || false,
-      //   }
-      //   userAttributes = result_mapping;
-
-      //   const email = result["email"] || "";
-      //   const fullname = result["fullname"] || "not set";
-      //   const phone_number = result["phone_number"] || "not set";
-      //   const email_notifications =
-      //     result["custom:email-notifications"] || "not set";
-      //   const text_notifications =
-      //     result["custom:text-notifications"] || "not set";
-      //   console.log("result of fetchUserAttributes:", result);
-      //   console.log("email:", email);
-      // console.log("fullname", fullname);
-      // console.log("phone_number", phone_number);
-      // console.log("email_notifications", email_notifications);
+      if (result["custom:email-notifications"]) {
+        userAttributes.email_notifications =
+          result["custom:email-notifications"].toLowerCase() === "true" ||
+          false;
+      }
+      if (result["custom:text-notifications"]) {
+        userAttributes.text_notifications =
+          result["custom:text-notifications"].toLowerCase() === "true" || false;
+      }
+      // console.log("User attributes from cognito: ", result);
+      // console.log("User attributes ref: ", userAttributes);
     }
   } catch (error) {
     console.error(error);
@@ -109,7 +88,8 @@ onMounted(async () => {
 
 <template>
   <div>
-    <h1>Manage Your User Settings!</h1>
+    <h1>Hey {{ userAttributes.name }}!</h1>
+    <h2>Manage Your User Settings Below</h2>
     <!-- <p>{{ userAttributes.valueOf() }}</p> -->
     <form @submit.prevent="handleSubmit">
       <div class="form-input">
@@ -142,7 +122,7 @@ onMounted(async () => {
       <div class="form-input">
         <label for="phone-number">Phone Number</label>
         <input
-          type="text"
+          type="tel"
           id="phone-number"
           v-model="userAttributes.phone_number"
           @input="validatePhoneNumber"
@@ -159,6 +139,7 @@ onMounted(async () => {
         />
       </div>
     </form>
+    <p>{{ message }}</p>
     <button type="submit" @click="handleSubmit">Submit</button>
   </div>
 </template>
