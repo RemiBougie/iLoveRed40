@@ -29,9 +29,17 @@ const policy = new Policy(
           "dynamodb:GetRecords",
           "dynamodb:GetShardIterator",
           "dynamodb:ListStreams",
+          "ses:SendEmail"
         ],
         resources: ["*"],
       }),
+      // new PolicyStatement({
+      //   effect: Effect.ALLOW,
+      //   actions: [
+      //     "ses:SendEmail"
+      //   ],
+      //   resou
+      // })
     ],
   }
 );
@@ -39,7 +47,7 @@ backend.myDynamoDBFunction.resources.lambda.role?.attachInlinePolicy(policy);
 
 const mapping = new EventSourceMapping(
   Stack.of(showsTable),
-  "MyDynamoDBFunctionTodoEventStreamMapping",
+  "MyDynamoDBFunctionTodoEventStreamMapping", // misnamed this, oh well
   {
     target: backend.myDynamoDBFunction.resources.lambda,
     eventSourceArn: showsTable.tableStreamArn,

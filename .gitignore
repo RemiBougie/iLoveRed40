@@ -33,3 +33,7 @@ coverage
 .amplify
 amplify_outputs*
 amplifyconfiguration*
+
+
+# misc
+newShowTemplate.json
