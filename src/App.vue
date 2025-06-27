@@ -50,7 +50,6 @@ const toggleAuthenticator = () => {
 
 <template>
   <main>
-    <button>Trigger hello-world lambda</button>
     <!-- Authenticator is a toggling modal that overlays/disappears -->
     <Authenticator
       variation="modal"
