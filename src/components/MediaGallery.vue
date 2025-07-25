@@ -2,7 +2,13 @@
 import { ref, onMounted } from "vue";
 //import { Storage } from "aws-amplify";
 import "@/assets/main.css";
-import { list, getUrl, uploadData, downloadData, remove } from "aws-amplify/storage";
+import {
+  list,
+  getUrl,
+  uploadData,
+  downloadData,
+  remove,
+} from "aws-amplify/storage";
 import type { Url } from "url";
 
 defineProps({
@@ -75,24 +81,24 @@ const uploadFile = async () => {
   } catch (e) {
     console.log("error", e);
   }
-  
-  fetchMedia()
+
+  fetchMedia();
 };
 
 const handleDelete = async (file: fileWithUrl) => {
   console.log("Delete in progress");
-  window.confirm("Are you sure you want to delete this item?")
+  window.confirm("Are you sure you want to delete this item?");
   try {
-    console.log(file)
+    console.log(file);
     await remove({
       path: file.key,
       // bucket: "mediaGallery"
     });
-    fetchMedia()
+    fetchMedia();
   } catch (error) {
-    console.log('Error', error)
+    console.log("Error", error);
   }
-}
+};
 
 // THE BELOW CODE IS SETUP CODE THAT RELIES ON ABOVE FUNCTION(S)
 onMounted(fetchMedia);
@@ -103,7 +109,7 @@ onMounted(fetchMedia);
     <div>
       <h1>Media Gallery</h1>
       <div v-if="mediaFiles.length" class="gallery">
-        <div v-for="file in mediaFiles" :key="file.key" class="media=item">
+        <div v-for="file in mediaFiles" :key="file.key" class="media-item">
           <!--p>{{ file.url.url }}</p-->
           <!--img :src="file.url.href" alt="Media" class="media" /-->
           <template
@@ -117,12 +123,14 @@ onMounted(fetchMedia);
           <template v-else-if="file.key.toLowerCase() !== 'media/'">
             <img :src="file.url.href" alt="Media" class="media" />
           </template>
-          <button v-if="isAdmin" @click="handleDelete(file)">REMOVE ITEM</button>
+          <!-- <button v-if="isAdmin" @click="handleDelete(file)">
+            REMOVE ITEM
+          </button> -->
         </div>
       </div>
 
       <div v-if="isAdmin">
-        <h1>Upload Media</h1>
+        <h1>Upload Media (Admin Only)</h1>
         <input type="file" @change="handleFileSelection" ref="fileInput" />
         <button @click="uploadFile">Upload</button>
       </div>
@@ -132,22 +140,67 @@ onMounted(fetchMedia);
 
 <style>
 .gallery {
-  display: grid;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
+  justify-content: center;
+  margin: 10px;
 }
 
 .media-item {
-  text-align: center;
+  flex: 1 1 auto;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 8px;
+
+  /* text-align: center;
   justify-content: center;
   align-items: center;
-
+  position: relative;
+  overflow: hidden; */
 }
 
-.media {
-  width: 100%;
+.media-item:hover {
+  transition: 0.2ms;
+  transform: scale(2);
+  background-color: var(--color-text);
+  margin: 10px;
+  padding: 10px;
+}
+
+.media-item img {
+  min-width: 200px;
+  max-width: 100%;
+  max-height: 200px;
   height: auto;
-  /* max-height: 300px; */
+  width: auto;
+  object-fit: contain;
+}
+.media-item video {
+  max-width: 100%;
+  max-height: 300px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  /* aspect-ratio: 4 / 3; */
 }
 
+/* .media {
+  width: minmax(300px, 1fr);
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background-color: #000;
+
+} */
+
+@import "lightgallery/css/lightgallery.css";
+@import "lightgallery/css/lg-thumbnail.css";
+@import "lightgallery/css/lg-zoom.css";
 </style>

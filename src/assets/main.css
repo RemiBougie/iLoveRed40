@@ -1,3 +1,11 @@
+:root {
+  --color-primary: #FF0000;
+  --color-dark:    #DC3030;
+  --color-accent:  #FF6666;
+  --color-light:   #FFCCCC;
+  --color-text:    #333333;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -9,13 +17,15 @@ body {
 }
 
 .contents {
-  background: linear-gradient(180deg, rgb(255, 0, 0), rgb(255, 255, 255));
+  background: linear-gradient(180deg, var(--color-accent), var(--color-light));
+  width: 100vw;
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  width: 100vw;
 }
 
 /*
@@ -24,6 +34,14 @@ div {
   display: flex;
   flex-direction: row;
 }*/
+
+h1 {
+  color: var(--color-text);
+  background-color: var(--color-dark);
+  border-radius: 8px;
+  padding: 5px;
+  margin: 0px 5px 0px 0px;
+}
 
 button {
   border-radius: 8px;

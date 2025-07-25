@@ -90,6 +90,7 @@ onMounted(async () => {
   <div>
     <h1>Hey {{ userAttributes.name }}!</h1>
     <h2>Manage Your User Settings Below</h2>
+    <p>NOTE: Neither email or text services are operational yet.</p>
     <!-- <p>{{ userAttributes.valueOf() }}</p> -->
     <form @submit.prevent="handleSubmit">
       <div class="form-input">
